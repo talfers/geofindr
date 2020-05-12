@@ -50,7 +50,7 @@ def send_csv():
                     longitudes.append(location.longitude)
                     folium.Marker(
                     location=[location.latitude, location.longitude],
-                    icon=folium.Icon(color='red')
+                    icon=folium.Icon(color='#B22222', icon="bullseye", prefix='fa')
                     ).add_to(m)
             df['latitude'] = latitudes
             df['longitude'] = longitudes
