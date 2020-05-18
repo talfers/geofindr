@@ -41,6 +41,10 @@ def send_csv():
                 city = str(row['city'])
                 state = str(row['state'])
                 zip = str(row['zip'])
+                if "-" in zip:
+                    zip = zip[:zip.index('-')]
+                if len(zip) < 5:
+                    zip = '0' + zip
                 location = geolocator.geocode("{} {} {} {}".format(address, city, state, zip), timeout=10)
                 if location == None:
                     latitudes.append('unknown')
@@ -49,8 +53,8 @@ def send_csv():
                     latitudes.append(location.latitude)
                     longitudes.append(location.longitude)
                     folium.Marker(
-                    location=[location.latitude, location.longitude],
-                    icon=folium.Icon(color='#B22222', icon="bullseye", prefix='fa')
+                        location=[location.latitude, location.longitude],
+                        icon=folium.Icon(color='darkred', icon="bullseye", prefix='fa')
                     ).add_to(m)
             df['latitude'] = latitudes
             df['longitude'] = longitudes
