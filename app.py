@@ -45,6 +45,7 @@ def send_csv():
                     zip = zip[:zip.index('-')]
                 if len(zip) < 5:
                     zip = '0' + zip
+                print(zip)
                 location = geolocator.geocode("{} {} {} {}".format(address, city, state, zip), timeout=10)
                 if location == None:
                     latitudes.append('unknown')
