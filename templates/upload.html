@@ -3,25 +3,43 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geofindr</title>
-    <link rel="shortcut icon" href="static/imgs/globe.png" />
+    <title>Geocodr</title>
+    <link rel="shortcut icon" href="/static/imgs/logo_purple.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/stylesheets/main.css">
   </head>
   <body>
-    <section>
+    <section id="background">
       <div id="brand">
-        <img id="logo" src="/static/imgs/globe.png" alt="geofindr-logo">
-        <h1>Geofindr</h1>
-
+        <h1>Geocodr</h1>
+        <p class="headers">
+          headers: [id], [address], [city], [state], [zip]
+        </p>
       </div>
-      <p>headers: [id], [address], [city], [state], [zip]</p>
       <form action="/results" method="POST" enctype="multipart/form-data">
-        <label>Upload CSV:<label>
-        <input type="file" accept=".csv" value='' name="file" />
-        <input value="Upload" type="submit" />
+        <label>
+          <div class="upload-btn">
+            <i class="fas fa-arrow-up"></i>
+            <span>Upload</span>
+          </div>
+
+          <input
+               type="file"
+               class="file-input"
+               accept=".csv" value=''
+               name="file"
+          />
+        </label>
+        <div id="file-name"></div>
+        <div class="submit-btn">
+          <i class="fas fa-globe-americas"></i>
+          <input value="" type="submit"></input>
+          <span>Geocode</span>
+        </div>
       </form>
     </section>
-
+  <script type="text/javascript" src="/static/js/main.js"></script>
+  <script type="text/javascript" src="/static/js/bg.js"></script>
   </body>
 </html>

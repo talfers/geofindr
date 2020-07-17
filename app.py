@@ -45,7 +45,11 @@ def send_csv():
                     zip = zip[:zip.index('-')]
                 if len(zip) < 5:
                     zip = '0' + zip
+
                 location = geolocator.geocode("{} {} {} {}".format(address, city, state, zip), timeout=10)
+                i = df.index
+                number_of_rows = len(i)
+                print('{index}/{length}'.format(index=index+1, length=number_of_rows))
                 if location == None:
                     latitudes.append('unknown')
                     longitudes.append('unknown')
@@ -54,8 +58,9 @@ def send_csv():
                     longitudes.append(location.longitude)
                     folium.Marker(
                         location=[location.latitude, location.longitude],
-                        icon=folium.Icon(color='darkred', icon="bullseye", prefix='fa')
+                        icon=folium.Icon(color='darkpurple', icon="bullseye", prefix='fa')
                     ).add_to(m)
+
             df['latitude'] = latitudes
             df['longitude'] = longitudes
             m.save('templates/store_map.html')
