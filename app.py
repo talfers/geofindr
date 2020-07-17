@@ -1,5 +1,6 @@
 # This package allows servers, requests, urls, etc.
 from flask import Flask, request, render_template, redirect, url_for
+from config import googleapi_key, user_agent
 # Create app var from Flask package
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ import folium
 # Set path to upload csv (path of current app dirnae)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-geolocator = GoogleV3(api_key='AIzaSyCYNaAhybO8b6cO08LuYNLs2LZsmKDpaXc', domain='maps.googleapis.com', user_agent="geofindr_v1")
+geolocator = GoogleV3(api_key=googleapi_key, domain='maps.googleapis.com', user_agent=user_agent)
 
 # Create get route, function to run on request
 @app.route('/')
@@ -35,7 +36,6 @@ def send_csv():
             latitudes = []
             longitudes = []
             m = folium.Map(location=[37, -95], tiles="OpenStreetMap", zoom_start=5)
-
             for index, row in df.iterrows():
                 address = str(row['address'])
                 city = str(row['city'])
@@ -45,7 +45,6 @@ def send_csv():
                     zip = zip[:zip.index('-')]
                 if len(zip) < 5:
                     zip = '0' + zip
-
                 location = geolocator.geocode("{} {} {} {}".format(address, city, state, zip), timeout=10)
                 i = df.index
                 number_of_rows = len(i)
@@ -60,7 +59,6 @@ def send_csv():
                         location=[location.latitude, location.longitude],
                         icon=folium.Icon(color='darkpurple', icon="bullseye", prefix='fa')
                     ).add_to(m)
-
             df['latitude'] = latitudes
             df['longitude'] = longitudes
             m.save('templates/store_map.html')
